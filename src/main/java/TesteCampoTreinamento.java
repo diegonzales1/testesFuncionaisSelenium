@@ -114,7 +114,44 @@ public class TesteCampoTreinamento {
         }
 
         Assert.assertTrue(encontrou);
+        driver.quit();
     }
 
+    @Test
+    public void deveVerificarValoresComboMultiplo() {
+        System.setProperty("webdriver.chrome.driver", "C:/CURSOAUTOMACAO/chromedriver.exe");
+        ChromeDriver driver = new ChromeDriver();
+
+        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+
+        By comboBoxEscolariedade = By.id("elementosForm:esportes");
+        WebElement element = driver.findElement(comboBoxEscolariedade);
+        Select combo = new Select(element);
+
+        combo.selectByVisibleText("Natacao");
+        combo.selectByVisibleText("Corrida");
+        combo.selectByVisibleText("O que eh esporte?");
+
+        List<WebElement> options = combo.getAllSelectedOptions();
+        Assert.assertEquals(3, options.size());
+
+        //combo.deselectByVisibleText("O que eh esporte?");
+        //Assert.assertEquals(2, options.size());
+        driver.quit();
+    }
+
+    @Test
+    public void deveInteragirComBotoes() {
+        System.setProperty("webdriver.chrome.driver", "C:/CURSOAUTOMACAO/chromedriver.exe");
+        ChromeDriver driver = new ChromeDriver();
+
+        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+
+        By buttonObrigado = By.id("buttonSimple");
+        WebElement botao = driver.findElement(buttonObrigado);
+        botao.click();
+        Assert.assertEquals("Obrigado!", botao.getAttribute("value"));
+        driver.quit();
+    }
 
 }
