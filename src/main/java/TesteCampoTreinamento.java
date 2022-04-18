@@ -1,4 +1,5 @@
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -31,7 +32,7 @@ public class TesteCampoTreinamento {
         driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
         By textArea = By.id("elementosForm:sugestoes");
 
-        driver.findElement(textArea).sendKeys("teste\n\n\nteste final");
+        driver.findElement(textArea).sendKeys("teste");
         Assert.assertEquals("teste", driver.findElement(textArea).getAttribute("value"));
 
         driver.quit();
@@ -154,4 +155,32 @@ public class TesteCampoTreinamento {
         driver.quit();
     }
 
+    @Test
+    @Ignore
+    public void deveInteragirComLink() {
+        System.setProperty("webdriver.chrome.driver", "C:/CURSOAUTOMACAO/chromedriver.exe");
+        ChromeDriver driver = new ChromeDriver();
+
+        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+
+        By link = By.linkText("Voltar");
+        driver.findElement(link).click();
+
+        //Assert.assertTrue(driver.findElement(By.id("resultado")).isDisplayed());
+        Assert.assertEquals("Voltou!", driver.findElement(By.id("resultado")).getText());
+        driver.quit();
+    }
+
+    @Test
+    public void deveBuscarTextosNaPagina() {
+        System.setProperty("webdriver.chrome.driver", "C:/CURSOAUTOMACAO/chromedriver.exe");
+        ChromeDriver driver = new ChromeDriver();
+
+        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+
+        //Assert.assertTrue(driver.findElement(By.tagName("body")).getText().contains("Voltou"));
+        Assert.assertEquals("Campo de Treinamento", driver.findElement(By.tagName("h3")).getText());
+        Assert.assertEquals("Cuidado onde clica, muitas armadilhas...", driver.findElement(By.className("facilAchar")).getText());
+        driver.quit();
+    }
 }
